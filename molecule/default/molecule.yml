@@ -1,0 +1,22 @@
+---
+driver:
+  name: docker
+dependency:
+  name: galaxy
+lint: |
+  set -e
+  yamllint
+  ansible-lint
+platforms:
+  - name: ubi9-instance
+    image: ubi9/ubi-init
+    pre_build_image: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    command: "/usr/sbin/init"
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+

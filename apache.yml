@@ -1,0 +1,13 @@
+---
+- name: Install Apache, a web server
+  hosts: all
+  tasks:
+    - name: Ensure the httpd software is installed
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+    - name: Ensure the httpd service is enabled and started
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true

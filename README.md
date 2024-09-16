@@ -1,1 +1,2 @@
-# ansible-demo-ci
+# ansible-demo
+Demo repository
