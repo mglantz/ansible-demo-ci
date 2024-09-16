@@ -11,7 +11,7 @@ lint: |
   ansible-lint
 platforms:
   - name: ubi9-instance
-    image: ubi9/ubi-init
+    image: registry.access.redhat.com/ubi9-init:latest
     pre_build_image: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
