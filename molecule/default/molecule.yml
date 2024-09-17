@@ -1,7 +1,7 @@
 ---
 prerun: false
 driver:
-  name: docker
+  name: podman
 dependency:
   name: galaxy
   enabled: true
