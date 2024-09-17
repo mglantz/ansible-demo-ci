@@ -10,7 +10,7 @@ lint: |
   yamllint
   ansible-lint
 platforms:
-  - name: RHEL9
+  - name: rhel9-instance
     image: registry.access.redhat.com/ubi9-init:latest
     pre_build_image: true
     volumes:
@@ -18,7 +18,7 @@ platforms:
     cgroupns_mode: host
     privileged: true
     command: "/lib/systemd/systemd"
-  - name: RHEL8
+  - name: rhel8-instance
     image: registry.access.redhat.com/ubi8-init:latest
     pre_build_image: true
     volumes:
