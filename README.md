@@ -4,6 +4,9 @@ Demo repository for testing Molecule and GitHub actions to do Ansible testing
 ## Content
 ```
 ├── apache.yml # A playbook we test
+├── .github # GitHub actions main directory
+│   └── workflows 
+│       └── ci.yml # CI pipeline which does Molecule testing
 ├── LICENSE
 ├── molecule # Molecule main directory
 │   └── default # Test scenario default directory
