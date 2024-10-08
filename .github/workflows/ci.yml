@@ -28,7 +28,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install prereqs
-        run: pip install ansible ansible-lint yamllint molecule molecule-docker molecule-podman podman
+        run: pip install ansible ansible-lint yamllint molecule molecule-podman podman
 
       - name: Run molecule test
         run: molecule test
