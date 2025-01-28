@@ -27,7 +27,7 @@
     - name: Fail if Apache service was not started
       ansible.builtin.assert:
         that:
-          - pkg.changed is false
+          - srvc.changed is false
         fail_msg: "Service httpd was not both started!"
         success_msg: "Service httpd was started."
 
