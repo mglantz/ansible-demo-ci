@@ -16,6 +16,39 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   pre-merge:
+    name: Security gate
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+      
+      # Security gate for not allowed modules
+      - name: Check for Ansible tasks we do not allow
+        run: |
+          echo "### SECURITY GATE: Searching for Ansible modules we do not allow in playbooks."
+          DETECTED=0
+          for playbook in *.yml
+          do
+            for notallowed in "command:" "shell:"
+            do
+              if grep -q "$notallowed" "$playbook"
+              then
+                echo "ERROR: Found "$notallowed" Ansible module in "$playbook"."
+                DETECTED=1
+              fi
+            done
+          done
+          if [ "$DETECTED" -eq 0 ]
+          then
+            echo "RESULT: PASSED."
+          else
+            echo "RESULT: NOT PASSED."
+            exit 1
+          fi
+          
     # Name of test
     name: Molecule
     # The type of runner that the job will run on
@@ -25,23 +58,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-
-      # Security gate for not allowed modules
-      - name: Check for tasks we do not allow
-        run: |
-          echo "### SECURITY GATE: Searching for Ansible modules we do not allow in playbooks."
-          for playbook in *.yml
-          do
-            for notallowed in "command:" "shell:"
-            do
-              if grep -q "$notallowed" "$playbook"
-              then
-                echo "ERROR: Found "$notallowed" Ansible module in "$playbook"."
-                exit 1
-              fi
-            done
-          done
-          
+      
       # Runs a single command using the runners shell
       - name: Install prereqs
         run: pip install ansible ansible-lint yamllint molecule molecule-podman podman
