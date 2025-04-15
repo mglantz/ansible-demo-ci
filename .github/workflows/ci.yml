@@ -26,6 +26,22 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      # Security gate for not allowed modules
+      - name: Check for tasks we do not allow
+        run: |
+          echo "### SECURITY GATE: Searching for Ansible modules we do not allow in playbooks."
+          for playbook in *.yml
+          do
+            for notallowed in "command:" "shell:"
+            do
+              if grep -q "$notallowed" "$playbook"
+              then
+                echo "ERROR: Found "$notallowed" Ansible module in "$playbook"."
+                exit 1
+              fi
+            done
+          done
+          
       # Runs a single command using the runners shell
       - name: Install prereqs
         run: pip install ansible ansible-lint yamllint molecule molecule-podman podman
