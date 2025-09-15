@@ -2,22 +2,22 @@
 - name: Install Apache, a web server
   hosts: all
   tasks:
-    - name: Ensure the httpd software is installed
+    - name: Install Apache web server
       ansible.builtin.package:
         name: httpd
         state: present
-    - name: Copy index.html page to html root
+
+    - name: Create index.html file in html root directory
       ansible.builtin.copy:
-        content: |
-          <html>
-          <body>
-          Hej, hallo, hello, hi.
-          </body>
-          </html>
+        content: "<!DOCTYPE html> <html> <body> <h1>Foobar.</p></body></html>\n"
         dest: /var/www/html/index.html
-        mode: 0644
-    - name: Ensure the httpd service is enabled and started
+        mode: '644'
+        owner: apache
+        group: apache
+
+    - name: Enable and start Apache service across reboot
       ansible.builtin.service:
         name: httpd
-        state: started
         enabled: true
+        state: started
+...
