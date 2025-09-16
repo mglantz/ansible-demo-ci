@@ -1,5 +1,5 @@
 # ansible-demo-ci
-Demo repository for testing Molecule and GitHub actions to do Ansible testing
+Demonstration of how you can use Molecule testing inside of GitHub actions to ensure your Ansible code is always tested.
 
 ## Content
 ```
