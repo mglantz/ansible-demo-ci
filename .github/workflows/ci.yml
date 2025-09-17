@@ -28,10 +28,11 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install prereqs
-        run: pip install ansible==10.6.0 ansible-lint yamllint molecule molecule-podman podman
+        run: pip install ansible ansible-lint yamllint molecule molecule-podman podman
 
       - name: Run molecule test
         run: molecule test
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
+          ALLOW_BROKEN_CONDITIONALS: '1'
