@@ -31,7 +31,7 @@ jobs:
         run: pip install ansible ansible-lint yamllint molecule molecule-podman podman
 
       - name: Run molecule test
-        run: molecule test
+        run: molecule test --debug
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
